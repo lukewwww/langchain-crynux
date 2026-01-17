@@ -10,7 +10,7 @@ from langchain_openai import ChatOpenAI
 class ChatCrynux(ChatOpenAI):
     """ChatOpenAI with a Crynux-specific VRAM requirement."""
 
-    vram_limit: int
+    vram_limit: int = 24
 
     def __init__(self, *args: Any, vram_limit: int = 24, **kwargs: Any) -> None:
         if vram_limit <= 0:
@@ -26,6 +26,6 @@ class ChatCrynux(ChatOpenAI):
 
         extra_body = {**extra_body, "vram_limit": vram_limit}
         kwargs["extra_body"] = extra_body
+        kwargs["vram_limit"] = vram_limit
 
         super().__init__(*args, **kwargs)
-        self.vram_limit = vram_limit
